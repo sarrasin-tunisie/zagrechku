@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2C5F2E">
+<meta name="description" content="Commandez du sarrasin authentique en Tunisie. Distributeur officiel VIPA. Minimum 5 kg — 8 DT/kg.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sarrasin TN">
+<meta property="og:title" content="Sarrasin Tunisie — Livraison à domicile">
+<meta property="og:description" content="Découvrez le sarrasin — une céréale saine et délicieuse. 8 DT/kg, minimum 5 kg. Livraison partout en Tunisie.">
+<meta property="og:type" content="website">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>Sarrasin Tunisie — Livraison à domicile</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #2C5F2E;
+    --green-dark: #1e4421;
+    --green-light: #e8f5e9;
+    --amber: #C17D00;
+    --amber-light: #FFF3CD;
+    --amber-mid: #FFC107;
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --bg: #FAFAF8;
+    --bg-card: #FFFFFF;
+    --text: #1A1A18;
+    --text2: #6B6B62;
+    --text3: #9B9B92;
+    --border: rgba(0,0,0,0.1);
+    --border2: rgba(0,0,0,0.06);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111311; --bg-card: #1C1F1C;
+      --text: #F0F0EC; --text2: #9A9A92; --text3: #6A6A62;
+      --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.06);
+      --green-light: #1a2e1a; --amber-light: #2a2200; --teal-light: #0d2a1f;
+    }
+  }
+
+  html, body { height: 100%; width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+
+  #app { height: 100vh; width: 100%; display: flex; flex-direction: column; max-width: 430px; margin: 0 auto; position: relative; }
+
+  .screen { display: none; flex-direction: column; flex: 1; overflow: hidden; animation: fadeIn 0.2s ease; }
+  .screen.active { display: flex; }
+
+  @keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
+
+  .scroll-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 80px; }
+
+  .safe-top { background: var(--green); padding-top: env(safe-area-inset-top, 0px); }
+
+  /* HEADER */
+  .app-header { background: var(--green); padding: 14px 16px 16px; display: flex; align-items: center; gap: 12px; }
+  .header-logo { width: 40px; height: 40px; background: #FAC775; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .header-titles { flex: 1; }
+  .header-title { font-size: 19px; font-weight: 700; color: white; letter-spacing: -0.3px; }
+  .header-sub { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 1px; }
+  .header-badge { background: #FAC775; color: #5C3A00; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+
+  .sub-header { background: var(--green); display: flex; align-items: center; gap: 10px; padding: 12px 16px 14px; }
+  .back-btn { background: rgba(255,255,255,0.15); border: none; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; font-size: 18px; flex-shrink: 0; }
+  .sub-header h2 { color: white; font-size: 17px; font-weight: 600; }
+
+  /* HERO */
+  .hero { margin: 12px 12px 0; background: var(--green); border-radius: var(--radius); padding: 18px 16px; position: relative; overflow: hidden; }
+  .hero::after { content: '🌾'; position: absolute; right: -8px; bottom: -12px; font-size: 80px; opacity: 0.15; transform: rotate(-20deg); pointer-events: none; }
+  .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: #FAC775; text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 22px; font-weight: 800; color: white; line-height: 1.2; letter-spacing: -0.5px; }
+  .hero p { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 8px; line-height: 1.5; }
+  .hero-price-row { display: flex; align-items: baseline; gap: 8px; margin-top: 14px; }
+  .hero-price { font-size: 32px; font-weight: 800; color: #FAC775; }
+  .hero-price-label { font-size: 14px; color: rgba(255,255,255,0.7); }
+  .hero-min { margin-top: 8px; display: inline-block; background: rgba(255,255,255,0.15); color: white; font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; }
+
+  /* PRICE BLOCK */
+  .price-block { margin: 12px 12px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .price-card { background: var(--bg-card); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 14px; text-align: center; }
+  .price-card.featured { background: var(--green-light); border-color: var(--green); }
+  .price-card .label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .price-card .value { font-size: 24px; font-weight: 800; color: var(--text); margin-top: 4px; }
+  .price-card.featured .value { color: var(--green); }
+  .price-card .sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+  /* SECTION LABEL */
+  .section-label { padding: 16px 12px 8px; font-size: 12px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.8px; }
+
+  /* CALCULATOR */
+  .calc-wrap { padding: 0 12px; }
+  .calc-card { background: var(--bg-card); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px; }
+  .calc-title { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+  .kg-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+  .kg-btn { border: 1.5px solid var(--border); background: var(--bg); border-radius: var(--radius-sm); padding: 10px 4px; font-size: 14px; font-weight: 600; text-align: center; cursor: pointer; color: var(--text); transition: all 0.15s; }
+  .kg-btn span { display: block; font-size: 10px; color: var(--text2); font-weight: 400; margin-top: 2px; }
+  .kg-btn.active { border-color: var(--green); background: var(--green-light); color: var(--green); }
+  .kg-btn.active span { color: var(--green); opacity: 0.8; }
+  .kg-custom { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; }
+  .kg-custom label { font-size: 13px; color: var(--text2); flex-shrink: 0; }
+  .kg-custom input { flex: 1; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; background: var(--bg); color: var(--text); font-family: inherit; }
+  .kg-custom input:focus { outline: none; border-color: var(--green); }
+  .kg-custom .unit { font-size: 14px; font-weight: 600; color: var(--text2); }
+  .calc-result { background: var(--green-light); border-radius: var(--radius-sm); padding: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .calc-result .result-label { font-size: 13px; color: var(--green-dark); }
+  .calc-result .result-price { font-size: 22px; font-weight: 800; color: var(--green); }
+
+  /* INFO GRID */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px; }
+  .info-tile { background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px 12px; }
+  .info-tile .tile-icon { font-size: 22px; margin-bottom: 6px; }
+  .info-tile .tile-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .info-tile .tile-sub { font-size: 12px; color: var(--text2); margin-top: 3px; line-height: 1.4; }
+
+  /* WHY SECTION */
+  .why-card { margin: 0 12px; background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .why-item { display: flex; flex-direction: column; gap: 4px; }
+  .why-item .why-icon { font-size: 24px; }
+  .why-item .why-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .why-item .why-sub { font-size: 12px; color: var(--text2); line-height: 1.4; }
+
+  /* CTA */
+  .cta-wrap { padding: 16px 12px 0; }
+  .btn-cta { width: 100%; background: var(--green); color: white; border: none; border-radius: var(--radius); padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; transition: background 0.15s, transform 0.1s; -webkit-tap-highlight-color: transparent; }
+  .btn-cta:active { background: var(--green-dark); transform: scale(0.99); }
+  .btn-cta .btn-icon { font-size: 20px; }
+  .btn-secondary { width: 100%; margin-top: 10px; background: var(--bg-card); color: var(--text); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+
+  /* BOTTOM NAV */
+  .bottom-nav { background: var(--bg-card); border-top: 0.5px solid var(--border); display: flex; padding-bottom: env(safe-area-inset-bottom, 0px); flex-shrink: 0; }
+  .nav-btn { flex: 1; padding: 10px 4px 8px; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; border: none; background: none; color: var(--text2); font-size: 10px; font-weight: 600; font-family: inherit; -webkit-tap-highlight-color: transparent; transition: color 0.15s; }
+  .nav-btn .nav-icon { font-size: 22px; }
+  .nav-btn.active { color: var(--green); }
+
+  /* ORDER */
+  .order-intro { margin: 12px 12px 0; background: var(--amber-light); border: 0.5px solid var(--amber-mid); border-radius: var(--radius); padding: 12px 14px; font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .order-intro strong { color: var(--amber); }
+  .form-container { margin: 12px 12px 0; background: var(--bg-card); border-radius: var(--radius); border: 0.5px solid var(--border); overflow: hidden; }
+  .form-container iframe { width: 100%; border: none; display: block; height: 520px; }
+  .form-direct-link { padding: 12px 14px; border-top: 0.5px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .form-direct-link a { flex: 1; color: var(--green); font-size: 13px; font-weight: 600; text-decoration: none; }
+  .form-direct-link span { font-size: 11px; color: var(--text3); }
+
+  /* ABOUT */
+  .about-hero { margin: 12px; background: var(--green); border-radius: var(--radius); padding: 24px 18px; text-align: center; color: white; }
+  .about-hero .emoji { font-size: 52px; margin-bottom: 10px; }
+  .about-hero h2 { font-size: 22px; font-weight: 800; }
+  .about-hero p { font-size: 14px; opacity: 0.8; margin-top: 8px; line-height: 1.6; }
+  .about-card { margin: 0 12px 8px; background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .about-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .about-card p { font-size: 14px; color: var(--text2); line-height: 1.6; }
+  .fact-list { display: flex; flex-direction: column; gap: 10px; }
+  .fact-row { display: flex; gap: 10px; align-items: flex-start; }
+  .fact-emoji { font-size: 20px; flex-shrink: 0; }
+  .fact-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+  .fact-text strong { color: var(--text); font-weight: 600; }
+
+  /* CONTACT */
+  .contact-list { display: flex; flex-direction: column; }
+  .contact-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 0.5px solid var(--border2); }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .contact-icon.wa { background: #e8f5e9; }
+  .contact-icon.tg { background: #e3f2fd; }
+  .contact-icon.ig { background: #fce4ec; }
+  .contact-icon.em { background: var(--amber-light); }
+  .contact-item a { color: var(--green); font-size: 14px; font-weight: 600; text-decoration: none; }
+  .contact-item .contact-sub { font-size: 12px; color: var(--text3); }
+
+  /* INSTALL BANNER */
+  #install-banner { display: none; position: fixed; bottom: 0; left: 0; right: 0; max-width: 430px; margin: 0 auto; background: var(--bg-card); border-top: 0.5px solid var(--border); padding: 12px 16px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); flex-direction: column; gap: 8px; }
+  #install-banner.visible { display: flex; }
+  .install-row { display: flex; align-items: center; gap: 10px; }
+  .install-icon { width: 44px; height: 44px; border-radius: 10px; background: #FAC775; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .install-text strong { font-size: 14px; font-weight: 700; color: var(--text); }
+  .install-text p { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  .install-actions { display: flex; gap: 8px; }
+  .btn-install { flex: 1; padding: 10px; background: var(--green); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; }
+  .btn-dismiss { padding: 10px 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; font-family: inherit; color: var(--text2); }
+
+  .ios-hint { display: none; position: fixed; bottom: 0; left: 0; right: 0; max-width: 430px; margin: 0 auto; background: var(--bg-card); border-top: 0.5px solid var(--border); padding: 16px; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); text-align: center; }
+  .ios-hint.visible { display: block; }
+  .ios-hint p { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .ios-hint strong { color: var(--green); }
+  .ios-hint button { margin-top: 10px; padding: 10px 24px; background: var(--green); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; cursor: pointer; font-family: inherit; font-weight: 700; }
+
+  #toast { display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 2000; white-space: nowrap; }
+  #toast.show { display: block; animation: toastIn 0.3s ease; }
+  @keyframes toastIn { from { opacity:0; top:30px; } to { opacity:1; top:20px; } }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== ACCUEIL ===== -->
+  <div class="screen active" id="screen-home">
+    <div class="safe-top">
+      <div class="app-header">
+        <div class="header-logo">🌾</div>
+        <div class="header-titles">
+          <div class="header-title">Sarrasin Tunisie</div>
+          <div class="header-sub">Distributeur officiel VIPA · Tunisie</div>
+        </div>
+        <div class="header-badge">8 DT/kg</div>
+      </div>
+    </div>
+
+    <div class="scroll-body">
+      <div class="hero">
+        <div class="hero-eyebrow">Maintenant disponible en Tunisie</div>
+        <h1>Le sarrasin,<br>livré chez vous</h1>
+        <p>Une céréale saine, riche en protéines et sans gluten — découvrez le sarrasin authentique</p>
+        <div class="hero-price-row">
+          <span class="hero-price">8 DT</span>
+          <span class="hero-price-label">par kilogramme</span>
+        </div>
+        <span class="hero-min">📦 Commande minimum — 5 kg</span>
+      </div>
+
+      <div class="price-block">
+        <div class="price-card featured">
+          <div class="label">Prix</div>
+          <div class="value">8 DT</div>
+          <div class="sub">par kg</div>
+        </div>
+        <div class="price-card">
+          <div class="label">Minimum</div>
+          <div class="value">5 kg</div>
+          <div class="sub">= 40 DT</div>
+        </div>
+      </div>
+
+      <div class="section-label">Calculateur de prix</div>
+      <div class="calc-wrap">
+        <div class="calc-card">
+          <div class="calc-title">Quelle quantité souhaitez-vous ?</div>
+          <div class="kg-options">
+            <div class="kg-btn active" data-kg="5" onclick="selectKg(this)">5 kg<span>40 DT</span></div>
+            <div class="kg-btn" data-kg="10" onclick="selectKg(this)">10 kg<span>80 DT</span></div>
+            <div class="kg-btn" data-kg="15" onclick="selectKg(this)">15 kg<span>120 DT</span></div>
+            <div class="kg-btn" data-kg="20" onclick="selectKg(this)">20 kg<span>160 DT</span></div>
+          </div>
+          <div class="kg-custom">
+            <label>Autre :</label>
+            <input type="number" id="kg-input" value="5" min="5" max="100" oninput="updateCustomKg(this)">
+            <span class="unit">kg</span>
+          </div>
+          <div class="calc-result">
+            <div class="result-label">Total pour <span id="result-kg">5</span> kg</div>
+            <div class="result-price"><span id="result-price">40</span> DT</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Pourquoi le sarrasin ?</div>
+      <div class="why-card">
+        <div class="why-grid">
+          <div class="why-item">
+            <span class="why-icon">💪</span>
+            <span class="why-title">Riche en protéines</span>
+            <span class="why-sub">13 g de protéines pour 100 g — idéal pour la santé</span>
+          </div>
+          <div class="why-item">
+            <span class="why-icon">🌿</span>
+            <span class="why-title">Sans gluten</span>
+            <span class="why-sub">Convient aux personnes intolérantes au gluten</span>
+          </div>
+          <div class="why-item">
+            <span class="why-icon">❤️</span>
+            <span class="why-title">Bon pour le cœur</span>
+            <span class="why-sub">Réduit le cholestérol et renforce les vaisseaux</span>
+          </div>
+          <div class="why-item">
+            <span class="why-icon">🍽️</span>
+            <span class="why-title">Polyvalent</span>
+            <span class="why-sub">Soupes, galettes, salades, porridges...</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Livraison</div>
+      <div class="info-grid">
+        <div class="info-tile">
+          <div class="tile-icon">🚚</div>
+          <div class="tile-title">Toute la Tunisie</div>
+          <div class="tile-sub">Tunis, Hammamet, Sousse, Monastir, Sfax...</div>
+        </div>
+        <div class="info-tile">
+          <div class="tile-icon">🤝</div>
+          <div class="tile-title">Bénévoles</div>
+          <div class="tile-sub">Livraison coordonnée par notre réseau de bénévoles</div>
+        </div>
+        <div class="info-tile">
+          <div class="tile-icon">✅</div>
+          <div class="tile-title">Qualité VIPA</div>
+          <div class="tile-sub">Distributeur officiel. Fraîcheur garantie</div>
+        </div>
+        <div class="info-tile">
+          <div class="tile-icon">💵</div>
+          <div class="tile-title">Paiement</div>
+          <div class="tile-sub">Espèces ou virement à la livraison</div>
+        </div>
+      </div>
+
+      <div class="cta-wrap">
+        <button class="btn-cta" onclick="navTo(null,'screen-order')">
+          <span class="btn-icon">📋</span>
+          Commander maintenant
+        </button>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="navTo(this,'screen-home')"><span class="nav-icon">🏠</span>Accueil</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-order')"><span class="nav-icon">📋</span>Commander</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-about')"><span class="nav-icon">🌿</span>À propos</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-contact')"><span class="nav-icon">📬</span>Contact</button>
+    </nav>
+  </div>
+
+  <!-- ===== COMMANDE ===== -->
+  <div class="screen" id="screen-order">
+    <div class="safe-top">
+      <div class="sub-header">
+        <button class="back-btn" onclick="navTo(null,'screen-home')">←</button>
+        <h2>Passer une commande</h2>
+      </div>
+    </div>
+    <div class="scroll-body">
+      <div class="order-intro">
+        💡 La commande se fait via un formulaire en ligne. Après envoi, un bénévole vous contactera pour organiser la livraison.<br><br>
+        <strong>Minimum : 5 kg · Prix : 8 DT/kg</strong>
+      </div>
+      <div class="form-container">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSf86vzJ-wesf_BFAAR3rboTortjwb21o-r5KH3xC2f5cH4r6A/viewform?embedded=true"
+          title="Formulaire de commande de sarrasin"
+          loading="lazy"
+          allowfullscreen>
+          Chargement du formulaire...
+        </iframe>
+        <div class="form-direct-link">
+          <a href="https://forms.gle/E4SHh3yK469VxgMfA" target="_blank">Ouvrir le formulaire dans le navigateur ↗</a>
+          <span>si le formulaire ne charge pas</span>
+        </div>
+      </div>
+      <div class="cta-wrap">
+        <button class="btn-cta" onclick="openForm()">
+          <span class="btn-icon">🌐</span>
+          Ouvrir le formulaire de commande
+        </button>
+        <button class="btn-secondary" onclick="openWhatsApp()">💬 Contacter par WhatsApp</button>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+    <nav class="bottom-nav">
+      <button class="nav-btn" onclick="navTo(this,'screen-home')"><span class="nav-icon">🏠</span>Accueil</button>
+      <button class="nav-btn active" onclick="navTo(this,'screen-order')"><span class="nav-icon">📋</span>Commander</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-about')"><span class="nav-icon">🌿</span>À propos</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-contact')"><span class="nav-icon">📬</span>Contact</button>
+    </nav>
+  </div>
+
+  <!-- ===== À PROPOS ===== -->
+  <div class="screen" id="screen-about">
+    <div class="safe-top">
+      <div class="sub-header">
+        <button class="back-btn" onclick="navTo(null,'screen-home')">←</button>
+        <h2>À propos</h2>
+      </div>
+    </div>
+    <div class="scroll-body">
+      <div class="about-hero">
+        <div class="emoji">🌾</div>
+        <h2>Sarrasin Tunisie</h2>
+        <p>Nous introduisons le sarrasin en Tunisie — une céréale exceptionnelle pour votre santé et votre cuisine</p>
+      </div>
+      <div style="height:8px"></div>
+      <div class="about-card">
+        <h3>Notre mission</h3>
+        <p>Le sarrasin est une céréale ancienne, nutritive et délicieuse. Notre mission est de le rendre accessible à tous les Tunisiens qui souhaitent diversifier leur alimentation et prendre soin de leur santé.</p>
+      </div>
+      <div class="about-card">
+        <h3>Les bienfaits du sarrasin</h3>
+        <div class="fact-list">
+          <div class="fact-row">
+            <span class="fact-emoji">💪</span>
+            <span class="fact-text"><strong>Riche en protéines végétales</strong> — jusqu'à 13 g pour 100 g, bien plus que le riz ou le blé</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-emoji">🌿</span>
+            <span class="fact-text"><strong>Naturellement sans gluten</strong> — idéal pour les personnes sensibles ou intolérantes</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-emoji">❤️</span>
+            <span class="fact-text"><strong>Excellent pour le cœur</strong> — la rutine réduit la fragilité des capillaires et le taux de cholestérol</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-emoji">🍽️</span>
+            <span class="fact-text"><strong>Très polyvalent en cuisine</strong> — galettes, salades, soupes, porridges, desserts...</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-emoji">🌱</span>
+            <span class="fact-text"><strong>Indice glycémique bas</strong> — recommandé pour les diabétiques et les régimes équilibrés</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-card">
+        <h3>Distributeur officiel VIPA</h3>
+        <p>Nous travaillons en tant que distributeur officiel de la marque VIPA. Chaque lot est contrôlé avant livraison. Vous recevez uniquement un produit frais et de qualité.</p>
+      </div>
+      <div class="about-card">
+        <h3>Notre réseau de bénévoles</h3>
+        <p>La livraison est assurée par un réseau de bénévoles présents dans toute la Tunisie. Vous souhaitez rejoindre l'équipe ? Mentionnez-le dans votre commande !</p>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+    <nav class="bottom-nav">
+      <button class="nav-btn" onclick="navTo(this,'screen-home')"><span class="nav-icon">🏠</span>Accueil</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-order')"><span class="nav-icon">📋</span>Commander</button>
+      <button class="nav-btn active" onclick="navTo(this,'screen-about')"><span class="nav-icon">🌿</span>À propos</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-contact')"><span class="nav-icon">📬</span>Contact</button>
+    </nav>
+  </div>
+
+  <!-- ===== CONTACT ===== -->
+  <div class="screen" id="screen-contact">
+    <div class="safe-top">
+      <div class="sub-header">
+        <button class="back-btn" onclick="navTo(null,'screen-home')">←</button>
+        <h2>Nous contacter</h2>
+      </div>
+    </div>
+    <div class="scroll-body">
+      <div class="about-card" style="margin:12px 12px 8px">
+        <h3>Écrivez-nous</h3>
+        <div class="contact-list">
+          <div class="contact-item">
+            <div class="contact-icon wa">💬</div>
+            <div>
+              <a href="https://wa.me/21600000000" onclick="openWA(event)">WhatsApp</a>
+              <div class="contact-sub">Canal principal — réponse rapide</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon tg">✈️</div>
+            <div>
+              <a href="https://t.me/za_grechku_tn">@sarrasin_tunisie</a>
+              <div class="contact-sub">Telegram</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon ig">📸</div>
+            <div>
+              <a href="https://instagram.com/sarrasin.tunisie">@sarrasin.tunisie</a>
+              <div class="contact-sub">Instagram — recettes et actualités</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon em">📧</div>
+            <div>
+              <a href="mailto:hello@zagrechku.tn">hello@zagrechku.tn</a>
+              <div class="contact-sub">Email</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-card" style="margin:0 12px 8px">
+        <h3>Zone de livraison</h3>
+        <p>Nous livrons dans toute la Tunisie : Tunis, Hammamet, Nabeul, Sousse, Monastir, Sfax et d'autres villes, grâce à notre réseau de bénévoles locaux.</p>
+      </div>
+      <div class="cta-wrap">
+        <button class="btn-cta" onclick="openWhatsApp()">
+          <span class="btn-icon">💬</span>
+          Contacter par WhatsApp
+        </button>
+        <button class="btn-secondary" onclick="openForm()">📋 Accéder au formulaire de commande</button>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+    <nav class="bottom-nav">
+      <button class="nav-btn" onclick="navTo(this,'screen-home')"><span class="nav-icon">🏠</span>Accueil</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-order')"><span class="nav-icon">📋</span>Commander</button>
+      <button class="nav-btn" onclick="navTo(this,'screen-about')"><span class="nav-icon">🌿</span>À propos</button>
+      <button class="nav-btn active" onclick="navTo(this,'screen-contact')"><span class="nav-icon">📬</span>Contact</button>
+    </nav>
+  </div>
+
+</div>
+
+<!-- INSTALL BANNER -->
+<div id="install-banner">
+  <div class="install-row">
+    <div class="install-icon">🌾</div>
+    <div class="install-text">
+      <strong>Installer l'application</strong>
+      <p>Ajouter Sarrasin Tunisie à l'écran d'accueil</p>
+    </div>
+  </div>
+  <div class="install-actions">
+    <button class="btn-install" id="btn-install">Installer</button>
+    <button class="btn-dismiss" onclick="dismissInstall()">Plus tard</button>
+  </div>
+</div>
+
+<div class="ios-hint" id="ios-hint">
+  <p>Pour installer l'application sur iPhone :<br>
+  Appuyez sur <strong>«Partager»</strong> (📤) dans Safari,<br>
+  puis <strong>«Sur l'écran d'accueil»</strong></p>
+  <button onclick="document.getElementById('ios-hint').classList.remove('visible')">Compris</button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function navTo(btn, screenId) {
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(screenId)) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+  goTo(screenId);
+}
+
+let currentKg = 5;
+function selectKg(btn) {
+  document.querySelectorAll('.kg-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentKg = parseInt(btn.dataset.kg);
+  document.getElementById('kg-input').value = currentKg;
+  updateCalc();
+}
+function updateCustomKg(input) {
+  const val = parseInt(input.value);
+  if (val >= 5) { currentKg = val; document.querySelectorAll('.kg-btn').forEach(b => b.classList.remove('active')); updateCalc(); }
+}
+function updateCalc() {
+  document.getElementById('result-kg').textContent = currentKg;
+  document.getElementById('result-price').textContent = currentKg * 8;
+}
+
+function openForm() { window.open('https://forms.gle/E4SHh3yK469VxgMfA', '_blank'); }
+function openWhatsApp() {
+  const msg = encodeURIComponent('Bonjour ! Je voudrais commander du sarrasin 🌾');
+  window.open('https://wa.me/21600000000?text=' + msg, '_blank');
+}
+function openWA(e) { e.preventDefault(); openWhatsApp(); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); deferredPrompt = e;
+  document.getElementById('install-banner').classList.add('visible');
+});
+document.getElementById('btn-install').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') showToast('✅ Application installée !');
+  deferredPrompt = null;
+  document.getElementById('install-banner').classList.remove('visible');
+});
+function dismissInstall() {
+  document.getElementById('install-banner').classList.remove('visible');
+  localStorage.setItem('install-dismissed','1');
+}
+
+if (/iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) &&
+    !window.matchMedia('(display-mode: standalone)').matches &&
+    !localStorage.getItem('ios-hint-shown')) {
+  setTimeout(() => {
+    document.getElementById('ios-hint').classList.add('visible');
+    localStorage.setItem('ios-hint-shown','1');
+  }, 3000);
+}
+
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+</script>
+</body>
+</html>
